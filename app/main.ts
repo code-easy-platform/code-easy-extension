@@ -1,27 +1,45 @@
-import { app, Tray, Menu, BrowserWindow } from 'electron';
+// tslint:disable-next-line
+const { app, Menu, Tray } = require('electron');
+import * as express from 'express';
 import { resolve } from 'path';
+
+import { ExpressServer } from './server/server';
+
 
 app
     .whenReady()
     .then(() => {
-        // Inicializa o app
 
-        let tray = new Tray(resolve(__dirname, 'assets', 'code-easy-platform.png'));
+        const server = new ExpressServer({ port: 3000 });
+
+        // Inicializa o app
+        const tray = new Tray(resolve(__dirname, 'assets', 'code-easy-platform.png'));
 
         const contextMenu = Menu.buildFromTemplate([
-            { label: 'Open desktop app', type: 'normal', click: () => {
-                let win = new BrowserWindow({
-                    width: 1200,
-                    height: 720,
-                });
-
-                win.loadURL('https://code-easy-bfe83.web.app/');
-
-                win.menuBarVisible = false;
-            } }
+            {
+                label: 'Start server',
+                type: 'normal',
+                click: () => {
+                    server.startServer();
+                    // tslint:disable-next-line: no-console
+                    console.log('Server is running!');
+                },
+            },
+            {
+                label: 'Stop server',
+                type: 'normal',
+                click: () => {
+                    server.stopServer();
+                    // tslint:disable-next-line: no-console
+                    console.log('Server stopped!');
+                },
+            },
         ]);
 
         tray.setToolTip('Extension manager!');
         tray.setContextMenu(contextMenu);
+
+        // tslint:disable-next-line: no-console
+        console.log('App running!');
 
     });
