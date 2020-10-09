@@ -1,24 +1,36 @@
-import { MenuItem, MenuItemConstructorOptions, app, shell } from 'electron';
+import { MenuItem, MenuItemConstructorOptions, shell } from 'electron';
 
-import { ExpressServer } from './../../server/models';
+import { ElectronApp } from './../ElectronApp';
 
-const server = new ExpressServer({ port: 3000 });
-export const ContextMenu = (): (MenuItemConstructorOptions | MenuItem)[] => {
+export const ContextMenu = (app: ElectronApp): (MenuItemConstructorOptions | MenuItem)[] => {
 
+    /*
+    app.store['server'] = new ExpressServer({ port: 3000 });
+    
     const handleStartServer = () => {
-        server.start();
-        // tslint:disable-next-line: no-console
-        console.log('Server is running!');
+
+        if (app.store['server']) {
+
+            app.store['server'].start();
+            console.log('Server is running!');
+        } else {
+
+            app.store['server'] = new ExpressServer({ port: 3000 });
+            app.store['server'].start();
+            console.log('Server is running!');
+        }
     }
 
     const handleStopServer = () => {
-        server.stop();
-        // tslint:disable-next-line: no-console
-        console.log('Server is stopped!');
-    }
+
+        if (app.store['server']) {
+            app.store['server'].stop();
+            console.log('Server is stopped!');
+        }
+    } */
 
     const handleClose = () => {
-        app.exit();
+        app.close();
     }
 
     const handleOpenInBrowser = () => {
@@ -28,10 +40,10 @@ export const ContextMenu = (): (MenuItemConstructorOptions | MenuItem)[] => {
     return [
         {
             type: 'normal',
-            label: 'Open in browser',
             click: handleOpenInBrowser,
+            label: 'Open app in browser',
         },
-        {
+        /* {
             type: 'separator',
         },
         {
@@ -43,7 +55,7 @@ export const ContextMenu = (): (MenuItemConstructorOptions | MenuItem)[] => {
             type: 'normal',
             label: 'Stop server',
             click: handleStopServer,
-        },
+        }, */
         {
             type: 'separator',
         },

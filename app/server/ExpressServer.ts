@@ -1,8 +1,8 @@
 import * as express from 'express';
 import * as http from "http";
 
-import { IExpressServer } from './../interfaces';
-import routers from './../routes';
+import { IExpressServer } from './interfaces';
+import { routers } from './routes/routes';
 
 export class ExpressServer implements IExpressServer {
     server: express.Express;
@@ -20,7 +20,8 @@ export class ExpressServer implements IExpressServer {
     }
 
     private _initialize() {
-        // 
+
+        // Create a new intance of the express server
         this.server = express();
 
         if (!this.server) return;
@@ -42,5 +43,6 @@ export class ExpressServer implements IExpressServer {
     public stop() {
         if (!this.server) return;
         this.listener = this.listener.close();
+        this.server.removeAllListeners()
     }
 }

@@ -1,10 +1,10 @@
 import * as express from 'express';
 
-const routers = express.Router();
+const _routers = express.Router();
 
 // Metodo padrão.
-routers.get('/', (req, res) => {
+_routers.get('/', (req, res) => {
     return res.json({ message: 'Extension' });
 });
 
-export default routers;
+export const routers = _routers;
