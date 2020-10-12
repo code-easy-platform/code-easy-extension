@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as http from "http";
 
 import { IExpressServer } from './interfaces';
-import { routers } from './routes/routes';
+import { routers } from './routes';
 
 export class ExpressServer implements IExpressServer {
     server: express.Express;

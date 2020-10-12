@@ -47,8 +47,8 @@ export class ElectronApp implements IElectronApp {
     private _initializeComponents(): void {
 
         // Initialize server
-        this.store['server'] = new ExpressServer({ port: ENV.port });
-        this.store['server'].start();
+        this.store.server = new ExpressServer({ port: ENV.port });
+        this.store.server.start();
 
         const notification = new Notification({
             title: 'Server is running...',

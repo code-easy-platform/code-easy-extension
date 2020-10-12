@@ -6,7 +6,7 @@ export const ContextMenu = (app: ElectronApp): (MenuItemConstructorOptions | Men
 
     /*
     app.store['server'] = new ExpressServer({ port: 3000 });
-    
+
     const handleStartServer = () => {
 
         if (app.store['server']) {
