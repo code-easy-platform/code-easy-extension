@@ -3,6 +3,7 @@ import { CodeEasyLogo, SuccessIcon } from './../assets';
 
 import { ExpressServer } from './../server/ExpressServer';
 import { ContextMenu } from './context-menu/ContextMenu';
+import { ENV } from './../env';
 
 export interface IElectronApp {
     store: { [key: string]: any }
@@ -46,18 +47,18 @@ export class ElectronApp implements IElectronApp {
     private _initializeComponents(): void {
 
         // Initialize server
-        this.store['server'] = new ExpressServer({ port: 3000 });
+        this.store['server'] = new ExpressServer({ port: ENV.port });
         this.store['server'].start();
 
         const notification = new Notification({
             title: 'Server is running...',
-            body: 'Code easy extension server is running...',
+            body: `Server is running in http://localhost:${ENV.port}/...`,
             icon: SuccessIcon.path,
         });
         notification.show();
         setTimeout(() => {
             notification.close();
-        }, 3000);
+        }, 5000);
 
         // Inicialize app tray
         this.menuTray = new Tray(CodeEasyLogo.path);
